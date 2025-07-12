@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>淮海战役十人桥纪念馆 - 虚拟AR展厅</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', 'Segoe UI', sans-serif;
+        }
+        
+        :root {
+            --primary-color: #8b0000;
+            --secondary-color: #d4af37;
+            --dark-bg: #1a1a1a;
+            --light-bg: #f5f5f5;
+            --text-light: #ffffff;
+            --text-dark: #333333;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
+            color: var(--text-light);
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-attachment: fixed;
+        }
+        
+        .header {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--secondary-color);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+        }
+        
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            background: linear-gradient(to right, #d4af37, #ffd700);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            padding: 8px 15px;
+            border-radius: 5px;
+        }
+        
+        .nav-links a:hover, .nav-links a.active {
+            background: var(--primary-color);
+            color: var(--text-light);
+        }
+        
+        .hero {
+            padding: 80px 5%;
+            text-align: center;
+            background: url('https://images.unsplash.com/photo-1587334274534-84c3d0995b15?ixlib=rb-4.0.3') center/cover;
+            background-attachment: fixed;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+        }
+        
+        .hero-content {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+        
+        .tagline {
+            color: var(--secondary-color);
+            font-style: italic;
+            font-size: 1.8rem;
+            margin: 20px 0;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 35px;
+            background: var(--primary-color);
+            color: var(--text-light);
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 2px solid var(--secondary-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn:hover {
+            background: var(--secondary-color);
+            color: var(--dark-bg);
+            transform: translateY(-5px);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--secondary-color);
+        }
+        
+        .exhibition-halls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .hall-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .hall-card:hover {
+            transform: translateY(-15px);
+            border: 1px solid var(--secondary-color);
+        }
+        
+        .hall-image {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .hall-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+            padding: 20px;
+            color: white;
+        }
+        
+        .hall-title {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+        }
+        
+        .hall-content {
+            padding: 25px;
+        }
+        
+        .hall-content p {
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        
+       
+
+
+    /* 翻页式全景容器 */
+    .panorama-container {
+        width: 100%;
+        height: 600px;
+        margin: 50px 0;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
+        position: relative;
+    }
+    
+    .panorama-wrapper {
+        display: flex;
+        width: 300%;
+        height: 100%;
+        transition: transform 0.6s ease;
+    }
+    
+    .panorama-page {
+        width: 33.3333%;
+        height: 100%;
+        position: relative;
+    }
+    
+    .panorama-page iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+    
+    .panorama-info {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.8);
+        padding: 15px;
+        text-align: center;
+        z-index: 10;
+    }
+    
+    .panorama-title {
+        color: var(--secondary-color);
+        font-size: 1.5rem;
+        margin-bottom: 5px;
+    }
+    
+    .panorama-desc {
+        font-size: 1rem;
+    }
+    
+    .flip-controls {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+        z-index: 20;
+        transform: translateY(-50%);
+    }
+    
+    .flip-btn {
+        width: 50px;
+        height: 50px;
+        background: rgba(139, 0, 0, 0.7);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 1.5rem;
+        color: white;
+        border: 2px solid var(--secondary-color);
+        transition: all 0.3s;
+    }
+    
+    .flip-btn:hover {
+        background: var(--secondary-color);
+        transform: scale(1.1);
+    }
+    
+    .page-indicators {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 10px;
+        z-index: 20;
+    }
+    
+    .page-indicator {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.5);
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+    
+    .page-indicator.active {
+        background: var(--secondary-color);
+        transform: scale(1.3);
+    }
+    
+    @media (max-width: 768px) {
+        .panorama-container {
+            height: 400px;
+        }
+        
+        .flip-btn {
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+        }
+    }
+    .footer {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 40px 5%;
+            text-align: center;
+            margin-top: 80px;
+            border-top: 2px solid var(--secondary-color);
+        }
+        
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .footer p {
+            margin: 15px 0;
+            color: #aaa;
+        }
+        
+</style>
+
+      
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header class="header">
+        <div class="logo">
+            <i class="fas fa-landmark logo-icon"></i>
+            <div class="logo-text">十人桥纪念馆</div>
+        </div>
+        <nav class="nav-links">
+            <a href="#home" class="nav-link active">首页</a>
+            <a href="#guide" class="nav-link">参观指南</a>
+            <a href="#virtual-tour" class="nav-link">虚拟展厅</a>
+            <a href="#history" class="nav-link">历史背景及意义</a>
+        </nav>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>淮海战役十人桥烈士陵园纪念馆</h1>
+            <p class="tagline">"团结一心、奋力拼搏、甘愿奉献、敢于胜利"</p>
+            <p>纪念1948年11月8日，十名解放军战士以血肉之躯架设浮桥的壮举</p>
+            <a href="#guide" class="btn">开始虚拟参观 <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </section>
+    
+    <!-- 展厅介绍 -->
+    <section class="container" id="guide">
+        <h2 class="section-title">虚拟展厅</h2>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto 40px; font-size: 1.2rem; line-height: 1.7;">
+            点击下方任意展厅图片，即可进入该展厅的360度全景虚拟参观。在全景场景中，您可以通过热点标记了解更多历史细节。
+        </p>
+        
+        <div class="exhibition-halls">
+            <!-- 展厅1 -->
+            <div class="hall-card">
+                <div class="hall-image" style="background-image: url('https://i.ibb.co/W47n6k5r/25281a3065944b373d7d8a2c18bb1232.jpg');">
+                    <div class="hall-overlay">
+                        <h3 class="hall-title">展厅一：历史背景</h3>
+                    </div>
+                </div>
+                <div class="hall-content">
+                    <p>本展厅详细展示淮海战役的历史背景、战略部署和十人桥壮举的发生过程。通过历史照片、文物和多媒体展示，还原1948年11月8日那个决定性的时刻。</p>
+                   <a href="#jt1" class="nav-link"></a></button> 
+                </div>
+            </div>
+            
+            <!-- 展厅2 -->
+            <div class="hall-card">
+                <div class="hall-image" style="background-image: url('https://i.ibb.co/RkdNsmJJ/9fbf1bc5c23b1b910c6e842137831d43.jpg');">
+                    <div class="hall-overlay">
+                        <h3 class="hall-title">展厅二：英雄事迹</h3>
+                    </div>
+                </div>
+                <div class="hall-content">
+                    <p>深入了解十名战士的英雄事迹和个人故事，展示"十人桥班"的荣誉称号和集体一等功的由来。通过雕塑、场景还原和互动装置，体验那段震撼人心的历史。</p>
+                    <button class="btn" style="padding: 10px 25px; font-size: 1rem;" onclick="showPanorama(2)">进入展厅 </button>
+                </div>
+            </div>
+            
+            <!-- 展厅3 -->
+            <div class="hall-card">
+                <div class="hall-image" style="background-image: url('https://i.ibb.co/39Nk9419/128c09e3201cd23489e6313e6724a79d.jpg');">
+                    <div class="hall-overlay">
+                        <h3 class="hall-title">展厅三：精神传承</h3>
+                    </div>
+                </div>
+                <div class="hall-content">
+                    <p>展示"十人桥精神"在当代社会的传承与影响，包括教育项目、文化活动和社会实践。呈现纪念馆作为全国爱国主义教育基地的重要作用。</p>
+                    <button class="btn" style="padding: 10px 25px; font-size: 1rem;" onclick="showPanorama(0)">进入展厅</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- 全景展示 - 简单翻页式 -->
+<section class="container" id="virtual-tour">
+    <h2 class="section-title">360°全景体验</h2>
+    
+    <div class="panorama-container">
+        <div class="panorama-wrapper" id="panorama-wrapper">
+            <!-- 页面1：历史背景展厅 -->
+            <div class="panorama-page"id="jt1">
+                <iframe src="https://www.720yun.com/vr/da0jt5emOk8" allowfullscreen='true'></iframe>
+                <div class="panorama-info">
+                    <h3 class="panorama-title">历史背景展厅</h3>
+                    <p class="panorama-desc">展示淮海战役的历史背景和战略部署</p>
+                </div>
+            </div>
+            
+            <!-- 页面2：英雄事迹展厅 -->
+            <div class="panorama-page"id="jt2">
+                <iframe src="https://www.720yun.com/vr/0c1jt5emkk7" allowfullscreen='true'></iframe>
+                <div class="panorama-info">
+                    <h3 class="panorama-title">英雄事迹展厅</h3>
+                    <p class="panorama-desc">展示十名战士的英雄事迹和感人故事</p>
+                </div>
+            </div>
+            
+            <!-- 页面3：精神传承展厅 -->
+            <div class="panorama-page"id="jt3">
+                <iframe src="https://www.720yun.com/vr/143jt5emOw4 " allowfullscreen='true'></iframe>
+                <div class="panorama-info">
+                    <h3 class="panorama-title">精神传承展厅</h3>
+                    <p class="panorama-desc">展示"十人桥精神"在当代社会的传承</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 翻页控制按钮 -->
+        <div class="flip-controls">
+            <div class="flip-btn" id="prev-btn">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+            <div class="flip-btn" id="next-btn">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+        </div>
+        
+        <!-- 页面指示器 -->
+        <div class="page-indicators">
+            <div class="page-indicator active" data-index="0"></div>
+            <div class="page-indicator" data-index="1"></div>
+            <div class="page-indicator" data-index="2"></div>
+        </div>
+    </div>
+</section>
+<!-- 历史背景及意义 -->
+    <section class="history-section" id="history">
+        <div class="container">
+            <h2 class="section-title">历史背景与纪念意义</h2>
+            <div class="history-content">
+                <p>1948年11月8日，在淮海战役的关键时刻，<span class="highlight">华东野战军第9纵队27师79团1排3班的10名战士</span>在班长马选云和副排长范学福带领下，做出了惊天动地的壮举。面对湍急的河流和敌军火力封锁，战士们毅然跳入刺骨河水中，用自己的身体支撑起门板，架设起一座特殊的"人桥"。</p>
+                
+                <p>这座用血肉之躯搭建的浮桥，保障了500余名战士顺利渡河，为<span class="highlight">歼灭国民党黄百韬兵团赢得了关键战机</span>。战士们用生命诠释了"团结一心、奋力拼搏、甘愿奉献、敢于胜利"的革命精神，这种精神后来被提炼为"十人桥精神"，成为新沂城市精神的重要组成部分。</p>
+                
+                <p>战后，该班被授予<span class="highlight">"十人桥班"荣誉称号</span>及集体一等功。为了永远铭记这一壮举，1958年，当地政府在江苏省新沂市草桥镇堰头村建立了十人桥烈士陵园纪念馆，作为全国爱国主义教育基地，传承和弘扬这种不朽的革命精神。</p>
+            </div>
+            
+            <div class="info-boxes">
+                <div class="info-box">
+                    <h3><i class="fas fa-archway"></i> 纪念馆设施</h3>
+                    <p>纪念馆为两层结构，建筑面积750平方米，通过历史照片、文物和场景还原展示十人桥事迹及淮海战役相关历史。纪念碑高19.48米，象征战役发生于1948年，台阶设计（11级和8级）对应具体日期11月8日。</p>
+                </div>
+                
+                <div class="info-box">
+                    <h3><i class="fas fa-graduation-cap"></i> 红色教育</h3>
+                    <p>作为全国爱国主义教育基地，每年开展清明祭扫、青年研学等活动。新沂团市委组织"沉浸式红色教育研学"，通过专题片放映、座谈会和献花仪式传承精神。</p>
+                </div>
+                <div class="info-box">
+                    <h3><i class="fas fa-book"></i> 文化影响</h3>
+                    <p>十人桥事迹被编入教科书，并衍生纪实文学《红桥边》；国家电网徐州分公司成立"十人桥分队"，弘扬"人人都是桥墩"的理念。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <h3>淮海战役十人桥纪念馆</h3>
+            <p>地址：江苏省新沂市草桥镇堰头村</p>
+            <p>开放时间：周二至周日 9:00-17:00（周一闭馆）</p>
+            <p>交通：公交新沂4路、10路可抵达</p>
+            <p>预约电话：0516-88553207</p>
+            <p>© 2025 淮海战役十人桥纪念馆 - 传承红色基因，弘扬革命精神</p>
+        </div>
+    </footer>
+
+   <script>
+    // 简单翻页功能
+    const wrapper = document.getElementById('panorama-wrapper');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const indicators = document.querySelectorAll('.page-indicator');
+    let currentPage = 0;
+    const totalPages = 3;
+    
+    // 更新页面状态
+    function updatePanorama() {
+        // 移动wrapper显示当前页面
+        wrapper.style.transform = `translateX(-${currentPage * 100 / totalPages}%)`;
+        
+        // 更新指示器
+        indicators.forEach((indicator, index) => {
+            if (index === currentPage) {
+                indicator.classList.add('active');
+            } else {
+                indicator.classList.remove('active');
+            }
+        });
+    }
+    
+    // 下一页
+    nextBtn.addEventListener('click', () => {
+        currentPage = (currentPage + 1) % totalPages;
+        updatePanorama();
+    });
+    
+    // 上一页
+    prevBtn.addEventListener('click', () => {
+        currentPage = (currentPage - 1 + totalPages) % totalPages;
+        updatePanorama();
+    });
+    
+    // 指示器点击事件
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+            currentPage = index;
+            updatePanorama();
+        });
+    });
+    
+    // 初始化全景
+    updatePanorama();
+</script>
