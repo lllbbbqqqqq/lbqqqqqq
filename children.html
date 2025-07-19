@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>儿童专区 - 爱心资助宣传平台</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Comic Sans MS", "楷体", "微软雅黑", sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(to bottom, #e0f7fa, #bbdefb, #90caf9);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /*字体加粗*/
+        .bold-text1 {
+            font-weight: bold;
+        }
+  
+        .bold-text2 {
+            font-weight: 700;
+        }
+        
+        /* 云朵装饰 */
+        .cloud {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.9;
+            z-index: 1;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .cloud-1 {
+            width: 120px;
+            height: 70px;
+            top: 10%;
+            left: 5%;
+            animation: float 15s infinite linear;
+        }
+        
+        .cloud-2 {
+            width: 160px;
+            height: 90px;
+            top: 20%;
+            right: 8%;
+            animation: float 18s infinite linear;
+            animation-delay: 2s;
+        }
+        
+        .cloud-3 {
+            width: 100px;
+            height: 60px;
+            bottom: 20%;
+            left: 15%;
+            animation: float 12s infinite linear;
+            animation-delay: 4s;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4fc3f7, #29b6f6);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .logo {
+            font-size: 2.8rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav {
+            background-color: #29b6f6;
+            padding: 1rem 0;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+        
+        .nav li {
+            margin: 0.5rem 1.5rem;
+        }
+        
+        .nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            transition: all 0.3s;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .nav a:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-3px);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 5;
+        }
+        
+        .child-hero {
+            background: linear-gradient(rgba(41, 182, 246, 0.85), rgba(79, 195, 247, 0.85));
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-radius: 25px;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .child-hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://www.transparenttextures.com/patterns/45-degree-fabric-light.png');
+            opacity: 0.1;
+            z-index: -1;
+        }
+        
+        .child-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .child-hero p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            position: relative;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #ff9800;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn:hover {
+            background-color: #f57c00;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .section-title {
+            text-align: center;
+            color: #1565c0;
+            margin-bottom: 2.5rem;
+            font-size: 2.5rem;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 0 1.5rem;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 10%;
+            width: 80%;
+            height: 4px;
+            background: linear-gradient(to right, #4fc3f7, #ff9800);
+            border-radius: 2px;
+        }
+        
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .benefit-card {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s;
+            border: 3px solid #e3f2fd;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-10px) rotate(2deg);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            border-color: #4fc3f7;
+        }
+        
+        .benefit-card h3 {
+            color: #1565c0;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            border-bottom: 3px dashed #81d4fa;
+            padding-bottom: 0.8rem;
+            text-align: center;
+        }
+        
+        .benefit-card ul {
+            list-style-type: none;
+            padding: 0 1rem;
+        }
+        
+        .benefit-card li {
+            margin-bottom: 1.2rem;
+            padding-left: 2.5rem;
+            position: relative;
+            font-size: 1.15rem;
+            line-height: 1.6;
+        }
+        
+        .benefit-card li::before {
+            content: "✧";
+            color: #4fc3f7;
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+        
+        
+        
+        .game-section {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 6rem;
+            padding-top: 2rem;
+            padding-bottom: 8rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border: 3px solid #e3f2fd;
+            text-align: center;
+            backdrop-filter: blur(5px);
+        }
+        
+        .game-section h2 {
+            color: #1565c0;
+            margin-bottom: 4rem;
+            font-size: 2.5rem;
+        }
+        
+        .game-description {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            color: #555;
+            line-height: 1.7;
+        }
+        
+        .game-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+        
+        /* 翻转卡片样式 */
+        .flip-card {
+            width: 230px;
+            height: 200px;
+            perspective: 1000px;
+            cursor: pointer;
+            margin-right: 60px;
+        }
+        
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+        
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 150%;
+            backface-visibility: hidden;
+            border-radius: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            border: 3px solid #90caf9;
+        }
+        
+        .flip-card-front {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+        }
+        
+        .flip-card-back {
+            background: linear-gradient(135deg, #fff9c4, #fff59d);
+            transform: rotateY(180deg);
+            padding: 15px;
+            overflow: auto;
+        }
+        
+        .flip-card i {
+            font-size: 3.5rem;
+            color: #1565c0;
+            margin-bottom: 1rem;
+        }
+        
+        .flip-card span {
+            font-size: 1.1rem;
+            color: #0d47a1;
+            font-weight: bold;
+        }
+        
+        .flip-card-back h3 {
+            color: #1565c0;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .flip-card-back p {
+            font-size: 0.9rem;
+            color: #333;
+            line-height: 1.4;
+        }
+        
+        /* 动画效果 */
+        .floating {
+            animation: floating 4s ease-in-out infinite;
+        }
+        
+        .floating-2 {
+            animation: floating 5s ease-in-out infinite;
+            animation-delay: 0.5s;
+        }
+        
+        .floating-3 {
+            animation: floating 6s ease-in-out infinite;
+            animation-delay: 1s;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes float {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100vw); }
+        }
+        
+        .contact-info {
+            background: linear-gradient(135deg, #29b6f6, #0288d1);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .contact-info::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://www.transparenttextures.com/patterns/45-degree-fabric-light.png');
+            opacity: 0.1;
+            z-index: 1;
+        }
+        
+        .contact-info h2 {
+            margin-bottom: 1.5rem;
+            font-size: 2.2rem;
+            position: relative;
+            z-index: 2;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        .contact-description {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .contact-methods {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .contact-method {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            min-width: 220px;
+            transition: all 0.3s;
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .contact-method:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-5px);
+        }
+        
+        .contact-method i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+            color: #ffeb3b;
+        }
+        
+        .contact-method p {
+            margin: 0.3rem 0;
+            font-size: 1.1rem;
+        }
+        
+        .highlight {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #ffeb3b;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, #0288d1, #01579b);
+            color: white;
+            text-align: center;
+            padding: 2.5rem 0;
+            margin-top: 4rem;
+            border-top: 5px solid #4fc3f7;
+            position: relative;
+        }
+        
+        .footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: linear-gradient(to right, #ff9800, #ffeb3b, #4fc3f7);
+        }
+        
+        .footer p {
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .copyright {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav li {
+                margin: 0.3rem 0.8rem;
+            }
+            
+            .child-hero {
+                padding: 2.5rem 1.5rem;
+            }
+            
+            .child-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .flip-card {
+                width: 140px;
+                height: 140px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 2.2rem;
+            }
+            
+            .child-hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .child-hero p {
+                font-size: 1.2rem;
+            }
+            
+            .benefit-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 云朵装饰 -->
+    <div class="cloud cloud-1"></div>
+    <div class="cloud cloud-2"></div>
+    <div class="cloud cloud-3"></div>
+    
+    <!-- 太阳装饰 -->
+    <div class="sun" style="
+        position: fixed; 
+        top: 40px; 
+        right: 40px; 
+        width: 80px; 
+        height: 80px; 
+        background: radial-gradient(circle, #ffeb3b 0%, #ffc107 100%); 
+        border-radius: 50%; 
+        box-shadow: 0 0 40px 15px rgba(255, 235, 59, 0.6);
+        z-index: 1;
+        animation: pulse 4s infinite alternate;
+    "></div>
+    
+    <!-- 飞鸟装饰 -->
+    <div class="bird" style="
+        position: absolute;
+        top: 20%;
+        left: -50px;
+        font-size: 3rem;
+        animation: fly 20s linear infinite;
+        z-index: 2;
+    ">🐦</div>
+    
+    <style>
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 40px 15px rgba(255, 235, 59, 0.6); }
+            100% { transform: scale(1.05); box-shadow: 0 0 50px 20px rgba(255, 235, 59, 0.7); }
+        }
+        
+        @keyframes fly {
+            0% { transform: translateX(-100px) translateY(0); }
+            25% { transform: translateX(25vw) translateY(-20px); }
+            50% { transform: translateX(50vw) translateY(0); }
+            75% { transform: translateX(75vw) translateY(-15px); }
+            100% { transform: translateX(100vw) translateY(0); }
+        }
+    </style>
+
+    <div class="header">
+        <div class="logo">爱心资助宣传平台</div>
+        <p style="font-size: 1.8rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">儿童专区 - 快乐成长，我们相伴</p>
+    </div>
+    
+    <div class="nav">
+        <ul>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="policy.html">政策对比</a></li>
+            <li><a href="elderly.html">长者专区</a></li>
+            <li><a href="children.html">儿童专区</a></li>
+            <li><a href="interactive.html">资助资格评估</a></li>
+        </ul>
+    </div>
+    
+    <div class="container">
+        <div class="child-hero">
+            <h1>小朋友们，欢迎来到儿童乐园！</h1>
+            <p>这里是专门为小朋友们和家长设计的专区，有可爱的图案和简单的介绍，让你轻松了解儿童资助政策！</p>
+            <a href="interactive.html" class="btn">看看我能获得什么帮助</a>
+            
+            <!-- 装饰元素 -->
+            <div style="position: absolute; bottom: 20px; right: 30px; font-size: 3rem;">🎈</div>
+            <div style="position: absolute; top: 30px; left: 30px; font-size: 3rem;">🌈</div>
+        </div>
+        
+        <h2 class="section-title">儿童专属福利</h2>
+        
+        <div class="benefits">
+            <div class="benefit-card">
+                <h3>学前及义务教育资助</h3>
+                <ul>
+                    <li class="bold-text1">学前教育：</li>
+                    <p>低保/特困/残疾儿童及孤儿，公办园全免，民办园按750元/学期减免；困难家庭生活补助。</p>
+                    <li class="bold-text1">义务教育：</li>
+                    <p><strong>所有学生</strong>免学杂费和教科书费；困难家庭生活补助。</p>
+                </ul>
+            </div>
+            
+            <div class="benefit-card">
+                <h3>普通高中教育资助</h3>
+                <ul>
+                    <li class="bold-text1">免学杂费：</li>
+                    <p>脱贫户/低保/残疾学生等，示范高中900元/学期，非示范700元/学期。</p>
+                    <li class="bold-text1">国家助学金：</li>
+                    <p>分三档发放（650元-1650元/学期）。</p>
+                    
+                </ul>
+            </div>
+            
+            <div class="benefit-card">
+                <h3>大学教育资助</h3>
+                <ul>
+                    <li class="bold-text1">入学前：</li>
+                    <p><strong>生源地助学贷款：</strong>本专科最高2万/年，研究生2.5万/年</p>
+                    <p><strong>路费补助：</strong>外地高校录取生可领500-1000元</p>
+                    <li class="bold-text1">入学时：</li>
+                    <p>所有高校开通“绿色通道”（零学费入学）</p>
+                    
+                </ul>
+            </div>
+        </div>
+        
+        <div class="game-section">
+            <h2>政策知识翻翻卡</h2>
+            <div class="game-container">
+                <!-- 教育资助卡片 -->
+                <div class="flip-card floating" onclick="flipCard(this)">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <i class="fas fa-book-open"></i>
+                            <span>学前及义务教育资助</span>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>学前及义务教育资助政策</h3>
+                            <p><strong>幼儿园学费减免：</strong></p><p>公办园全免，民办园按750元/学期减免</p>
+                            <p><strong>生活补助：</strong></p><p>困难家庭儿童每年至少500元。</p>
+                            <p><strong>学习用品补助：</strong></p><p>每年提供300元学习用品补贴</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 健康保障卡片 -->
+                <div class="flip-card floating floating-2" onclick="flipCard(this)">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <i class="fas fa-heartbeat"></i>
+                            <span>普通高中教育资助</span>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>普通高中教育资助政策</h3>
+                            <p><strong>免学杂费：</strong></p><p>脱贫户/低保/残疾学生等，示范高中900元/学期，非示范700元/学期。</p>
+                            
+                            <p><strong>国家助学金：</strong></p><p>分三档发放（650元-1650元/学期）。</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 生活关怀卡片 -->
+                <div class="flip-card floating floating-3" onclick="flipCard(this)">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <i class="fas fa-home"></i>
+                            <span>大学教育资助</span>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>大学教育入学后资助政策</h3>
+                            <p><strong>助学金：</strong></p><p>2600-4800元/年</p>
+                            <p><strong>奖学金：</strong></p><p>优秀学生可获6000-10000元/年</p>
+                            <p><strong>申请方式：</strong></p><p>向学校提交材料 → 班级评审 → 公示 → 资金直发社保卡/银行卡。</p>
+                        </div>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </div>
+        
+        <div class="contact-info">
+            <h2>爸爸妈妈看这里</h2>
+            <p class="contact-description">如果您需要为孩子申请资助，可以通过以下方式联系我们，我们随时为您提供帮助！</p>
+            
+            <div class="contact-methods">
+                <div class="contact-method">
+                    <i class="fas fa-phone-alt"></i>
+                    <p>儿童服务专线</p>
+                    <p class="highlight">123-4568</p>
+                    <p>周一至周五 9:00-17:00</p>
+                </div>
+                <div class="contact-method">
+                    <i class="fas fa-school"></i>
+                    <p>学校咨询</p>
+                    <p class="highlight">联系孩子所在学校</p>
+                    <p>学校资助办公室提供专业指导</p>
+                </div>
+                <div class="contact-method">
+                    <i class="fas fa-laptop"></i>
+                    <p>网上申请</p>
+                    <p class="highlight">www.childfund.gov</p>
+                    <p>24小时在线申请服务</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>爱心资助宣传平台 © 2025 版权所有</p>
+        <p>咨询电话：123-4567890 | 邮箱：info@funding-help.org</p>
+        <p style="margin-top: 1.5rem;">本页面专为儿童设计，色彩鲜艳，互动有趣</p>
+        <p class="copyright">政策依据：教育部、民政部、人社部2025年最新文件</p>
+    </div>
+    
+    <script>
+        // 卡片翻转功能
+        function flipCard(card) {
+            card.classList.toggle('flipped');
+            
+            // 添加翻转动画效果
+            card.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                card.style.transform = '';
+            }, 300);
+        }
+        
+        // 添加气球动画
+        document.addEventListener('DOMContentLoaded', function() {
+            const hero = document.querySelector('.child-hero');
+            for (let i = 0; i < 8; i++) {
+                const balloon = document.createElement('div');
+                balloon.className = 'balloon';
+                balloon.innerHTML = '🎈';
+                balloon.style.position = 'absolute';
+                balloon.style.fontSize = Math.random() * 20 + 25 + 'px';
+                balloon.style.left = Math.random() * 80 + 10 + '%';
+                balloon.style.bottom = '-50px';
+                balloon.style.opacity = '0.7';
+                balloon.style.animation = `float-up ${Math.random() * 5 + 8}s infinite ease-in ${Math.random() * 5}s`;
+                hero.appendChild(balloon);
+            }
+        });
+        
+        // 添加第二只鸟
+        setTimeout(() => {
+            const bird2 = document.createElement('div');
+            bird2.className = 'bird';
+            bird2.innerHTML = '🐦';
+            bird2.style.top = '30%';
+            bird2.style.animation = 'fly 25s linear infinite';
+            bird2.style.animationDelay = '3s';
+            document.body.appendChild(bird2);
+        }, 3000);
+    </script>
+    <style>
+        @keyframes float-up {
+            0% { transform: translateY(0) rotate(0deg); bottom: -50px; opacity: 0.7; }
+            100% { transform: translateY(-100vh) rotate(360deg); bottom: 100%; opacity: 0; }
+        }
+        
+        .balloon {
+            z-index: 2;
+        }
+    </style>
+</body>
+</html>
