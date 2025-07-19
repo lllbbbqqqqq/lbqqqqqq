@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>老年版 - 爱心资助政策宣传平台</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+        
+        body {
+            background-color: #f8f1f1;
+            color: #333;
+            line-height: 1.8;
+            font-size: 18px;
+        }
+
+        /*字体加粗*/
+        .bold-text1 {
+            font-weight: bold;
+        }
+  
+        .bold-text2 {
+            font-weight: 700;
+        }
+        
+        /* 紧凑间距样式 */
+        .compact-spacing p {
+            margin-bottom: 0.5em;
+            line-height: 1.4;
+        }
+        
+        .compact-spacing ul {
+            margin: 0.5em 0 0.5em 1.5em;
+        }
+        
+        .compact-spacing li {
+            margin-bottom: 0.2em;
+            line-height: 1;
+        }
+
+        .red-theme {
+            background-color: #c1272d;
+            color: white;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #c1272d, #8e1b1f);
+            padding: 2.5rem 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .slogan {
+            font-size: 1.5rem;
+            opacity: 0.9;
+        }
+        
+        nav {
+            background-color: #a51e22;
+            padding: 1.2rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+        
+        nav li {
+            margin: 0 1.5rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.3rem;
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        nav a:hover {
+            background-color: #8e1b1f;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2.5rem auto;
+            padding: 0 2.5rem;
+        }
+        
+        .elderly-hero {
+            background: url('https://images.unsplash.com/photo-1507679799987-c73779587ccf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center;
+            background-size: cover;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 3rem;
+        }
+        
+        .elderly-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(193, 39, 45, 0.7);
+        }
+        
+        .elderly-hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            padding: 2.5rem;
+        }
+        
+        .elderly-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .elderly-hero p {
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: white;
+            color: #c1272d;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            border: 2px solid white;
+            margin: 0.5rem;
+        }
+        
+        .btn:hover {
+            background-color: transparent;
+            color: white;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-outline:hover {
+            background-color: white;
+            color: #c1272d;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #c1272d;
+            font-size: 2.5rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 5px;
+            background-color: #c1272d;
+            margin: 1.5rem auto;
+        }
+        
+        .elderly-benefits {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .benefit-card-container{
+            display: flex; /* 启用Flex布局 */
+            /* 允许换行（如果一行放不下） */
+            gap: 30px; /* 设置卡片间距 */
+        }
+        
+        .benefit-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            width:350px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .benefit-card h3 {
+            color: #c1272d;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid #f0f0f0;
+        }
+        
+        .benefit-card ul {
+            list-style-type: none;
+        }
+        
+        .benefit-card li {
+            margin-bottom: 1.2rem;
+            font-size: 1.2rem;
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .benefit-card li::before {
+            content: '✓';
+            color: #c1272d;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .elderly-apply {
+            background-color: #f0e6e6;
+            padding: 3rem;
+            border-radius: 10px;
+            margin-bottom: 4rem;
+        }
+        
+        .elderly-apply h3 {
+            color: #c1272d;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .apply-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+        
+        .step {
+            background-color: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .step-number {
+            background-color: #c1272d;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1.5rem;
+        }
+        
+        .step h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #c1272d;
+        }
+        
+        .step p {
+            font-size: 1.1rem;
+        }
+        
+        .contact-box {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2.5rem;
+            box-shadow: 0 5px 20
+
+px rgba(0, 0, 0, 0.1);
+text-align: center;
+margin-bottom: 3rem;
+}
+
+text
+    .contact-box h3 {
+        color: #c1272d;
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .contact-info {
+        font-size: 1.3rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .contact-info p {
+        margin-bottom: 1rem;
+    }
+    
+    .emergency {
+        color: #c1272d;
+        font-weight: bold;
+        font-size: 1.5rem;
+    }
+    
+    footer {
+        background: linear-gradient(135deg, #8e1b1f, #6b1518);
+        color: white;
+        padding: 3rem 0;
+        text-align: center;
+        font-size: 1.5rem;
+    }
+    
+    .footer-content {
+        display: flex;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        justify-content: center;
+        align-items: center;
+        height: 200px;
+        text-align: center;
+    }
+    
+    .footer-column h3 {
+        margin-bottom: 1.5rem;
+        font-size: 1.5rem;
+    }
+    
+    .footer-column ul {
+        list-style: none;
+    }
+    
+    .footer-column li {
+        margin-bottom: 1rem;
+    }
+    
+    .footer-column a {
+        color: #f0f0f0;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+    
+    .footer-column a:hover {
+        color: white;
+    }
+    
+    .copyright {
+        margin-top: 2rem;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 1.1rem;
+    }
+</style>
+</head> <body> <header class="red-theme"> <div class="logo">爱心资助宣传平台</div> <p class="slogan">长者专区 - 医养兼顾，安居乐为</p> </header>
+
+<nav>
+    <ul>
+       <li><a href="https://lllbbbqqqqq.github.io/JSSNU/index.html">首页</a></li>
+            <li><a href="https://lllbbbqqqqq.github.io/JSSNU/policy.html">政策对比</a></li>
+           
+            <li><a href="https://lllbbbqqqqq.github.io/JSSNU/elderly.html">长者专区</a></li>
+            <li><a href="https://lllbbbqqqqq.github.io/JSSNU/children.html">儿童专区</a></li>
+            <li><a href="https://lllbbbqqqqq.github.io/JSSNU/interactive.html">资助资格评估</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <div class="elderly-hero">
+        <div class="elderly-hero-content">
+            <h1>老年人资助政策专版</h1>
+            <p>为您提供适合老年人的资助政策信息，字体更大，内容更清晰</p>
+            <a href="https://lllbbbqqqqq.github.io/JSSNU/interactive.html" class="btn">一键查询适合我的资助</a>
+            
+        </div>
+    </div>
+    
+    <h2 class="section-title">老年人专属福利政策</h2>
+    
+    <div class="elderly-benefits">
+        <div class="benefit-card-container">
+        
+        <div class="benefit-card">
+            <h3>医疗健康保障</h3>
+            <ul>
+                <li><strong>特困人员：</strong>居民医保+大病保险费用全免。</li>
+                <li><strong>低保家庭：</strong>医保费补贴70%-90%，住院押金减半。</li>
+                <li><strong>慢性病补助:</strong>高血压/糖尿病每年多报销800元药费。</li>
+            </ul>
+        </div>
+        
+        <div class="benefit-card">
+            <h3>养老服务保障</h3>
+            <ul>
+                <li class="bold-text1">基础养老金：</li>
+                <p>全国最低143元/月（2025年标准），各地可上调（如上海可达1800元/月）。</p>
+                <li><strong>失地农民补贴：</strong></li>
+                <p>每月100-800元（根据征地情况）。</p>
+            </ul>
+        </div>
+        
+        <div class="benefit-card">
+            <h3>专项补贴政策</h3>
+            <ul>
+                <li class="bold-text1">计划生育家庭：</li>
+                <p>农村独生子女/双女户老人：满60岁每月补贴80元</p>
+                <p>独生子女伤残家庭：每月460元</p>
+                <li class="bold-text1">乡村医生：</li>
+                <p>服务满5年且年满60岁，每月按服务年限补贴（每满1年+8元）。</p>
+                <li class="bold-text1">补贴领取步骤</li>
+                <p>携带身份证、户口本到村委会登记 → 每年完成养老认证 → 补贴	直发社保卡。</p>
+            </ul>
+        </div>
+        </div>
+    </div>
+    
+    <div class="elderly-apply">
+        <h3>老年人资助申请四步走</h3>
+        
+        <div class="apply-steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h4>准备材料</h4>
+                <p>身份证、户口本、收入证明等基本材料</p>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">2</div>
+                <h4>提出申请</h4>
+                <p>可就近到社区服务中心或线上申请</p>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">3</div>
+                <h4>审核评估</h4>
+                <p>工作人员上门核实情况</p>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">4</div>
+                <h4>发放补助</h4>
+                <p>审核通过后按月发放至银行卡</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="contact-box">
+        <h3>咨询服务</h3>
+        <div class="contact-info">
+            <p>老年人服务专线：<strong>12349</strong></p>
+            <p>工作日 8:30-17:30</p>
+            <p>可预约上门办理服务</p>
+        </div>
+        <p class="emergency">紧急情况请拨打：120 或 110</p>
+        <a href="tel:12349" class="btn">立即拨打咨询电话</a>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-content" id="about">
+    
+        
+        
+        <div class="footer-column">
+            <h3>联系方式</h3>
+            <ul>
+                <p>客服电话: 12345-678</p>
+                <p>邮箱: support@aixin.org</p>
+                <p>地址: 北京市西城区XX街XX号</p>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="copyright">
+        <p>&copy; 2025 爱心资助政策宣传平台 版权所有</p>
+    </div>
+</footer>

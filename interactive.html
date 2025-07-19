@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>资助资格评估 - 爱心资助宣传平台</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+        
+        body {
+            background-color: #f8f1f1;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #d32f2f, #b71c1c);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .nav {
+            background-color: #c62828;
+            padding: 1rem 0;
+        }
+        
+        .nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+        
+        .nav li {
+            margin: 0 1.5rem;
+        }
+        
+        .nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .nav a:hover {
+            background-color: #b71c1c;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .assessment-intro {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        
+        .assessment-intro h1 {
+            color: #d32f2f;
+            margin-bottom: 1rem;
+        }
+        
+        .assessment-intro p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .assessment-form {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #555;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .form-control:focus {
+            border-color: #d32f2f;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.2);
+        }
+        
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+        }
+        
+        .radio-option input {
+            margin-right: 0.5rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #d32f2f;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #b71c1c;
+        }
+        
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+        
+        .result-container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            display: none;
+        }
+        
+        .result-container h2 {
+            color: #d32f2f;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .result-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .result-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .result-item h3 {
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        
+        .eligibility {
+            font-weight: bold;
+            color: #4caf50;
+        }
+        
+        .not-eligibility {
+            font-weight: bold;
+            color: #f44336;
+        }
+        
+        .suggestion {
+            background-color: #fff3e0;
+            padding: 1rem;
+            border-left: 4px solid #ff9800;
+            margin-top: 1rem;
+        }
+        
+        .footer {
+            background-color: #b71c1c;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .footer p {
+            margin-bottom: 1rem;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background-color: #d32f2f;
+            width: 0%;
+            transition: width 0.3s;
+        }
+        
+        .question-container {
+            display: none;
+        }
+        
+        .active-question {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">爱心资助宣传平台</div>
+        <p>资助资格评估系统</p>
+    </div>
+    
+    <div class="nav">
+        <ul>
+           <li><a href="https://lllbbbqqqqq.github.io/JSSNU/index.html">首页</a></li>
+            <li><a href="https://lllbbbqqqqq.github.io/JSSNU/policy.html">政策对比</a></li>
+           
+            <li><a href="https://lllbbbqqqqq.github.io/JSSNU/elderly.html">长者专区</a></li>
+            <li><a href="https://lllbbbqqqqq.github.io/JSSNU/children.html">儿童专区</a></li>
+            <li><a href="https://lllbbbqqqqq.github.io/JSSNU/interactive.html">资助资格评估</a></li>
+        </ul>
+    </div>
+    
+    <div class="container">
+        <div class="assessment-intro">
+            <h1>资助资格评估</h1>
+            <p>通过回答几个简单问题，我们将帮助您评估可能符合的资助项目，并提供申请建议。</p>
+            <p>评估过程大约需要2-3分钟，所有信息仅用于评估用途，不会保存。</p>
+        </div>
+        
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+        
+        <form id="assessmentForm">
+            <div class="question-container active-question" id="question1">
+                <div class="assessment-form">
+                    <div class="form-group">
+                        <label>1. 您是为自己还是为他人申请资助？</label>
+                        <div class="radio-group">
+                            <label class="radio-option"><input type="radio" name="applicant" value="self" required> 为自己</label>
+                            <label class="radio-option"><input type="radio" name="applicant" value="child"> 为孩子/未成年人</label>
+                            <label class="radio-option"><input type="radio" name="applicant" value="elderly"> 为长者</label>
+                            <label class="radio-option"><input type="radio" name="applicant" value="other"> 为其他家庭成员</label>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-block" onclick="nextQuestion(1, 2)">下一步</button>
+                </div>
+            </div>
+            
+            <div class="question-container" id="question2">
+                <div class="assessment-form">
+                    <div class="form-group">
+                        <label>2. 申请人的年龄是？</label>
+                        <select class="form-control" name="age" required>
+                            <option value="">请选择</option>
+                            <option value="0-5">0-5岁</option>
+                            <option value="6-12">6-12岁</option>
+                            <option value="13-17">13-17岁</option>
+                            <option value="18-59">18-59岁</option>
+                            <option value="60-69">60-69岁</option>
+                            <option value="70+">70岁及以上</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>3. 家庭人均月收入大约是多少？</label>
+                        <select class="form-control" name="income" required>
+                            <option value="">请选择</option>
+                            <option value="1000">1000元以下</option>
+                            <option value="1000-2000">1000-2000元</option>
+                            <option value="2000-3000">2000-3000元</option>
+                            <option value="3000-5000">3000-5000元</option>
+                            <option value="5000+">5000元以上</option>
+                        </select>
+                    </div>
+                    <button type="button" class="btn btn-block" onclick="nextQuestion(2, 3)">下一步</button>
+                </div>
+            </div>
+            
+            <div class="question-container" id="question3">
+                <div class="assessment-form">
+                    <div class="form-group">
+                        <label>4. 是否有以下特殊情况？（可多选）</label>
+                        <div class="radio-group" style="flex-direction: column; align-items: flex-start;">
+                            <label class="radio-option"><input type="checkbox" name="special" value="disability"> 残疾/重大疾病</label>
+                            <label class="radio-option"><input type="checkbox" name="special" value="single"> 单亲家庭</label>
+                            <label class="radio-option"><input type="checkbox" name="special" value="rural"> 农村户口</label>
+                            <label class="radio-option"><input type="checkbox" name="special" value="migrant"> 外来务工人员</label>
+                            <label class="radio-option"><input type="checkbox" name="special" value="none"> 无以上情况</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>5. 目前最需要的帮助类型是？</label>
+                        <select class="form-control" name="need" required>
+                            <option value="">请选择</option>
+                            <option value="living">基本生活保障</option>
+                            <option value="education">教育资助</option>
+                            <option value="medical">医疗保障</option>
+                            <option value="housing">住房保障</option>
+                            <option value="other">其他</option>
+                        </select>
+                    </div>
+                    <button type="button" class="btn btn-block" onclick="showResult()">查看评估结果</button>
+                </div>
+            </div>
+        </form>
+        
+        <div class="result-container" id="resultContainer">
+            <h2>评估结果</h2>
+            
+            <div id="elderlyResult" style="display: none;">
+                <div class="result-item">
+                    <h3>基本生活津贴</h3>
+                    <p class="eligibility">符合条件概率：高</p>
+                    <p>根据您提供的信息，您很可能符合长者基本生活津贴的申请条件。</p>
+                    <div class="suggestion">
+                        <p>建议：请准备身份证、户口本和收入证明，前往社区服务中心或通过政府服务网站申请。</p>
+                    </div>
+                </div>
+                
+                <div class="result-item">
+                    <h3>医疗保障补助</h3>
+                    <p class="eligibility">符合条件概率：中</p>
+                    <p>您可能符合部分医疗保障补助项目，具体取决于您的健康状况和医疗支出。</p>
+                    <div class="suggestion">
+                        <p>建议：咨询社区卫生服务中心，了解详细的医疗补助政策。</p>
+                    </div>
+                </div>
+                
+                <div class="result-item">
+                    <h3>公共交通优惠</h3>
+                    <p class="eligibility">符合条件概率：高</p>
+                    <p>60岁以上长者通常可以享受公共交通优惠或免费政策。</p>
+                    <div class="suggestion">
+                        <p>建议：携带身份证前往公交公司或地铁服务站办理长者交通卡。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="childResult" style="display: none;">
+                <div class="result-item">
+                    <h3>教育资助</h3>
+                    <p class="eligibility">符合条件概率：高</p>
+                    <p>根据您提供的信息，您的孩子很可能符合教育资助条件，包括学费减免和免费午餐等。</p>
+                    <div class="suggestion">
+                        <p>建议：联系孩子所在学校的学生资助办公室，了解具体申请流程。</p>
+                    </div>
+                </div>
+                
+                <div class="result-item">
+                    <h3>儿童营养计划</h3>
+                    <p class="eligibility">符合条件概率：中</p>
+                    <p>您的孩子可能符合儿童营养补助计划，特别是如果家庭收入较低。</p>
+                    <div class="suggestion">
+                        <p>建议：咨询当地妇联或社区卫生服务中心，了解营养补助申请方式。</p>
+                    </div>
+                </div>
+                
+                <div class="result-item">
+                    <h3>课外活动补贴</h3>
+                    <p class="not-eligibility">符合条件概率：低</p>
+                    <p>目前信息显示您的孩子可能不符合课外活动补贴条件。</p>
+                    <div class="suggestion">
+                        <p>建议：可以关注社区组织的免费儿童活动，或向学校咨询是否有其他资助项目。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="generalResult" style="display: none;">
+                <div class="result-item">
+                    <h3>最低生活保障</h3>
+                    <p class="eligibility">符合条件概率：中</p>
+                    <p>根据您的收入情况，您可能符合最低生活保障的部分条件。</p>
+                    <div class="suggestion">
+                        <p>建议：前往居住地社区居委会咨询详细申请条件和流程。</p>
+                    </div>
+                </div>
+                
+                <div class="result-item">
+                    <h3>临时救助</h3>
+                    <p class="eligibility">符合条件概率：中</p>
+                    <p>如果您目前面临特殊困难，可能符合临时救助条件。</p>
+                    <div class="suggestion">
+                        <p>建议：准备相关证明材料，向街道或乡镇政府社会事务办公室申请。</p>
+                    </div>
+                </div>
+                
+                <div class="result-item">
+                    <h3>就业援助</h3>
+                    <p class="eligibility">符合条件概率：高</p>
+                    <p>您可能符合就业援助和职业培训补贴条件。</p>
+                    <div class="suggestion">
+                        <p>建议：联系当地就业服务中心，了解免费职业培训和就业推荐服务。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <button type="button" class="btn btn-block" onclick="resetAssessment()">重新评估</button>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>爱心资助宣传平台 © 2025 版权所有</p>
+        <p>咨询电话：123-4567890 | 邮箱：info@funding-help.org</p>
+    </div>
+    
+    <script>
+        function nextQuestion(current, next) {
+            // 验证当前问题是否已回答
+            const currentQuestion = document.getElementById(`question${current}`);
+            const inputs = currentQuestion.querySelectorAll('[required]');
+            let isValid = true;
+            
+            inputs.forEach(input => {
+                if (!input.value && !(input.type === 'checkbox' && input.checked)) {
+                    isValid = false;
+                    input.style.borderColor = '#f44336';
+                } else {
+                    input.style.borderColor = '';
+                }
+            });
+            
+            if (!isValid) {
+                alert('请回答所有必答问题后再继续');
+                return;
+            }
+            
+            // 隐藏当前问题，显示下一个问题
+            document.getElementById(`question${current}`).classList.remove('active-question');
+            document.getElementById(`question${next}`).classList.add('active-question');
+            
+            // 更新进度条
+            const progress = document.getElementById('progress');
+            progress.style.width = `${(next / 3) * 100}%`;
+        }
+        
+        function showResult() {
+            // 验证最后一个问题
+            const lastQuestion = document.getElementById('question3');
+            const inputs = lastQuestion.querySelectorAll('[required]');
+            let isValid = true;
+            
+            inputs.forEach(input => {
+                if (!input.value && !(input.type === 'checkbox' && input.checked)) {
+                    isValid = false;
+                    input.style.borderColor = '#f44336';
+                } else {
+                    input.style.borderColor = '';
+                }
+            });
+            
+            if (!isValid) {
+                alert('请回答所有必答问题后再查看结果');
+                return;
+            }
+            
+            // 获取表单数据
+            const form = document.getElementById('assessmentForm');
+            const formData = new FormData(form);
+            const applicant = formData.get('applicant');
+            const age = formData.get('age');
+            
+            // 隐藏所有结果容器
+            document.getElementById('elderlyResult').style.display = 'none';
+            document.getElementById('childResult').style.display = 'none';
+            document.getElementById('generalResult').style.display = 'none';
+            
+            // 根据用户选择显示相应结果
+            if ((applicant === 'elderly' || age === '60-69' || age === '70+') && applicant !== 'child') {
+                document.getElementById('elderlyResult').style.display = 'block';
+            } else if (applicant === 'child' || age === '0-5' || age === '6-12' || age === '13-17') {
+                document.getElementById('childResult').style.display = 'block';
+            } else {
+                document.getElementById('generalResult').style.display = 'block';
+            }
+            
+            // 显示结果容器
+            document.getElementById('resultContainer').style.display = 'block';
+            
+            // 滚动到结果
+            document.getElementById('resultContainer').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function resetAssessment() {
+            // 重置表单
+            document.getElementById('assessmentForm').reset();
+            
+            // 隐藏所有问题和结果，显示第一个问题
+            document.querySelectorAll('.question-container').forEach(q => {
+                q.classList.remove('active-question');
+            });
+            document.getElementById('question1').classList.add('active-question');
+            document.getElementById('resultContainer').style.display = 'none';
+            
+            // 重置进度条
+            document.getElementById('progress').style.width = '0%';
+            
+            // 滚动到顶部
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
